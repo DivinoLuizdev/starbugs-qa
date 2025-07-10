@@ -9,4 +9,8 @@ class OrderPage
     end
 
 
+    def assert_time_delivery(target)     
+        delivery_time = find('p',text:'Previsão de entrega')
+        expect(delivery_time.find('strong').text).to eq target
+    end
 end

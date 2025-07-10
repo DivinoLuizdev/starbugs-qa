@@ -31,9 +31,6 @@ Então('sou redirecionado para a página de confirmação do pedido') do
     sleep 10
 end
 
-Então('deve ser informado um prazo de entregar entre {int} a {int} minutos') do |int, int2|
-# Então('deve ser informado um prazo de entregar entre {int} a {float} minutos') do |int, float|
-# Então('deve ser informado um prazo de entregar entre {float} a {int} minutos') do |float, int|
-# Então('deve ser informado um prazo de entregar entre {float} a {float} minutos') do |float, float2|
-  pending # Write code here that turns the phrase above into concrete actions
+Então('deve ser informado um prazo de entregar entre {string}') do |string|
+   @Order.assert_time_delivery(string)
 end
