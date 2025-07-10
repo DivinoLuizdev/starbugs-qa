@@ -12,18 +12,13 @@ end
 Dado('que eu estou na página principal da Starbugs') do
     visit 'https://starbugs-qa.vercel.app/'
 end
-
-Dado('que desejo compra o café {string}') do |product_name|
-    @product_name = product_name
+Dado('que desejo compra os seguinte produto:') do |table|
+     
+    @product = table.rows_hash['product']
+    @product_price = table.rows_hash['price']
+    @delivery_price = table.rows_hash['delivery']
 end
 
-Dado('que esse produto custa R$ {string}') do |product_price|
-  @product_price = product_price
-end
-
-Dado('que o custo de entrega e de R$ {string}') do |delivery_price|
-   @delivery_price = delivery_price
-end
 
 Quando('inicio a compra de item') do
     product = find('.coffee-item', text: @product_name)
@@ -45,7 +40,7 @@ Então('o valor total da compra deve ser R$ {string}') do |expected_total|
 
   total_price_element = find('.total .total-price')
 
-  # Corrige conversão de string com vírgula
+
   product = @product_price.gsub(',', '.').to_f
   delivery = @delivery_price.gsub(',', '.').to_f
   total_price_value = product + delivery
@@ -59,7 +54,7 @@ end
 # ---------------------
  Dado('que desejo comprar o café {string}') do |product_name|
     @product_name = product_name
-    puts "Produto selecionado: #{@product_name}"
+    
 end
 
 Quando('inicio a compra desse item') do
@@ -69,8 +64,8 @@ Quando('inicio a compra desse item') do
 end
 
 Então('deve ver um pop-up informando que o produto está indisponível') do
-    modal_pop_up = find('.swal2-popup  .swal2-html-container', text: 'Produto indisponível')
-    expect(modal_pop_up).to be_visible
+    pop_up = find('.swal2-html-container')
+    expect(pop_up.text).to eq 'Produto indisponível'
 
    end
 

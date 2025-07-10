@@ -14,15 +14,16 @@ Cenário: Acessar o Catálago de cafés na página principal
 Cenário: inciar a compra de um café
 
     Dado que eu estou na página principal da Starbugs
-        E que desejo compra o café "Expresso Gelado"
-        E que esse produto custa R$ "9,99"
-        E que o custo de entrega e de R$ "10,00"
+        E que desejo compra os seguinte produto:
+        |product  | Expresso Gelado |
+        |price    | 9,99            |
+        |delivery | 10,00           |
     Quando inicio a compra de item
     Então devo ver a pagina de Checkout com os detalhes do produto 
         E o valor total da compra deve ser R$ "19,99"
 
 
-@temp
+
 Cenário: Café indisponivel
     Dado que eu estou na página principal da Starbugs
         E que desejo comprar o café "Expresso Cremoso"
