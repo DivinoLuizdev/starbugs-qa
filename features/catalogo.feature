@@ -14,7 +14,7 @@ Cenário: Acessar o Catálago de cafés na página principal
 Cenário: inciar a compra de um café
 
     Dado que eu estou na página principal da Starbugs
-        E que desejo compra os seguinte produto:
+        E que desejo compra o seguinte produto:
         |name  | Expresso Gelado |
         |price    | 9,99            |
         |delivery | 10,00           |
@@ -23,10 +23,11 @@ Cenário: inciar a compra de um café
         E o valor total da compra deve ser R$ "19,99"
 
 
-@temp
+
 Cenário: Café indisponivel
     Dado que eu estou na página principal da Starbugs
-        E que desejo comprar o café "Expresso Cremoso"
+        E que desejo compra o seguinte produto:
+        |name  | Expresso Cremoso |
     Quando inicio a compra desse item
     Então deve ver um pop-up informando que o produto está indisponível
         E o pop-up deve ter o texto "Produto indisponível"

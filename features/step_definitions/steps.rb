@@ -12,10 +12,8 @@ end
 Dado('que eu estou na página principal da Starbugs') do
     visit 'https://starbugs-qa.vercel.app/'
 end
-Dado('que desejo compra os seguinte produto:') do |table|
-     
-    @product = table.rows_hash
-   
+Dado('que desejo compra o seguinte produto:') do |table|     
+    @product = table.rows_hash   
 end
 
 
@@ -51,24 +49,21 @@ Então('o valor total da compra deve ser R$ {string}') do |expected_total|
 end
 
 # ---------------------
- Dado('que desejo comprar o café {string}') do |product_name|
-    @product_name = product_name
-    
-end
 
 Quando('inicio a compra desse item') do
-    product = find('.coffee-item', text: @product_name)
+     
+    product = find('.coffee-item', text: @product[:name])
     product.find('.buy-coffee').click
-   
 end
 
 Então('deve ver um pop-up informando que o produto está indisponível') do
     pop_up = find('.swal2-html-container')
     expect(pop_up.text).to eq 'Produto indisponível'
-
-   end
+end
 
 Então('o pop-up deve ter o texto {string}') do |string|
     modal_pop_up = find('.swal2-popup .swal2-html-container', text: 'Produto indisponível')
     expect(modal_pop_up.text).to eq string
 end
+# -------------------
+ 
