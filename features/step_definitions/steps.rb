@@ -14,24 +14,23 @@ Dado('que eu estou na página principal da Starbugs') do
 end
 Dado('que desejo compra os seguinte produto:') do |table|
      
-    @product = table.rows_hash['product']
-    @product_price = table.rows_hash['price']
-    @delivery_price = table.rows_hash['delivery']
+    @product = table.rows_hash
+   
 end
 
 
 Quando('inicio a compra de item') do
-    product = find('.coffee-item', text: @product_name)
+    product = find('.coffee-item', text: @product[:name])
     product.find('.buy-coffee').click
      
 end
 
 Então('devo ver a pagina de Checkout com os detalhes do produto') do
     product_title =  find('.item-details h1')
-    expect(product_title.text).to eq(@product_name)
+    expect(product_title.text).to eq(@product[:name])
 
     sub_price_price = find('.subtotal .sub-price')
-    expect(sub_price_price.text).to eq "R$ #{@product_price}"
+    expect(sub_price_price.text).to eq "R$ #{@product[:price]}"
 
 end
 
@@ -41,8 +40,8 @@ Então('o valor total da compra deve ser R$ {string}') do |expected_total|
   total_price_element = find('.total .total-price')
 
 
-  product = @product_price.gsub(',', '.').to_f
-  delivery = @delivery_price.gsub(',', '.').to_f
+  product = @product[:price].gsub(',', '.').to_f
+  delivery =@product[:delivery].gsub(',', '.').to_f
   total_price_value = product + delivery
 
   formatted_total = "R$ #{'%.2f' % total_price_value}".gsub('.', ',')
