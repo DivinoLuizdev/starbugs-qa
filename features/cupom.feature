@@ -16,14 +16,15 @@ Cenário: Aplicar Desconto de 20%
     Quando aplico o seguinte cupom: "MEUCAFE"   
     Então o valor final da compra deve ser atualizado para R$ "25,99"
 
+ 
 
-Cenário: Aplicar cupom expirado no checkout
-  Quando aplico o seguinte cupom: "PROMO20"
-  Então devo ver a notificação "Cupom expirado!"
+Esquema do Cenario: tentativa de aplicar cupom
+
+    Quando aplico o seguinte cupom: "<cupom>"
+    Então devo ver a notificação "<saida>"
     E o valor total da compra deve permanecer R$ "29,99"
 
-
-Cenário: Cupom Inválido
-    Quando aplico o seguinte cupom: "PROMO10"
-    Então devo ver a notificação "Cupom inválido!"
-    E o valor total da compra deve permanecer R$ "29,99"
+Exemplos:
+  | cupom   | saida            |
+  | PROMO10 | Cupom inválido!  |
+  | PROMO20 | Cupom expirado!  |
