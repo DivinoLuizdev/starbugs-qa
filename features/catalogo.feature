@@ -22,7 +22,7 @@ Cenário: inciar a compra de um café
         E o valor total da compra deve ser R$ "19,99"
 
 
-
+@temp
 Cenário: Café indisponivel
     Dado que eu estou na página principal da Starbugs
         E que desejo comprar o café "Expresso Cremoso"

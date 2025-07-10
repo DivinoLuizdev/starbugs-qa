@@ -57,4 +57,24 @@ Então('o valor total da compra deve ser R$ {string}') do |expected_total|
 end
 
 # ---------------------
- 
+ Dado('que desejo comprar o café {string}') do |product_name|
+    @product_name = product_name
+    puts "Produto selecionado: #{@product_name}"
+end
+
+Quando('inicio a compra desse item') do
+    product = find('.coffee-item', text: @product_name)
+    product.find('.buy-coffee').click
+   
+end
+
+Então('deve ver um pop-up informando que o produto está indisponível') do
+    modal_pop_up = find('.swal2-popup  .swal2-html-container', text: 'Produto indisponível')
+    expect(modal_pop_up).to be_visible
+
+   end
+
+Então('o pop-up deve ter o texto {string}') do |string|
+    modal_pop_up = find('.swal2-popup .swal2-html-container', text: 'Produto indisponível')
+    expect(modal_pop_up.text).to eq string
+end
