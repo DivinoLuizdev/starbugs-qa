@@ -31,4 +31,5 @@ Cenário: Café indisponivel
     Quando inicio a compra desse item
     Então deve ver um pop-up informando que o produto está indisponível
         E o pop-up deve ter o texto "Produto indisponível"
+
         

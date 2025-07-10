@@ -28,6 +28,20 @@ class Checkout
 
         expect(total_price_element.text).to eq formatted_total
         expect(formatted_total).to eq "R$ #{value}"
-    end    
+    end 
 
+    def find_zip_code(zip_code)
+        find('input[name=cep]').set(zip_code)
+        find("input[value='Buscar CEP']").click
+    end
+    def fill_address_data(number,details)
+        find("input[name='number']").set(number)
+        find("input[name='complement']").set(details)
+    end   
+    def choice_payment(payment)
+        find('label div', text: payment.upcase).click        
+    end
+    def confirm_order
+        find('button[type=submit]').click
+    end
 end
