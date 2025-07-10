@@ -28,7 +28,7 @@ end
 
 Então('sou redirecionado para a página de confirmação do pedido') do
     @Order.assert_order
-    sleep 10
+     
 end
 
 Então('deve ser informado um prazo de entregar entre {string}') do |string|
