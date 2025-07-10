@@ -41,8 +41,7 @@ Então('deve ver um pop-up informando que o produto está indisponível') do
 end
 
 Então('o pop-up deve ter o texto {string}') do |string|
-    @Popup.assert_popup_text(string)
-      
+    @Popup.assert_popup_text(string)      
 end
 
  

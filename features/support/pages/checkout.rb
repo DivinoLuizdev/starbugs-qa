@@ -44,4 +44,37 @@ class Checkout
     def confirm_order
         find('button[type=submit]').click
     end
+
+    def assert_cupom(cupom)
+        find('input[placeholder="Código do cupom"]').set(cupom)  
+        find('input[value="Aplicar"]').click
+    end        
+    
+     def assert_total_price_cupom(expected_value, product)
+        # Verifica se o elemento de preço total está presente na página
+        expect(page).to have_css('.total .total-price')
+
+        # Captura o elemento do valor total exibido
+        total_price_element = find('.total .total-price')
+
+        # Converte os valores de string para float
+        product_price = product[:price].gsub(',', '.').to_f
+        delivery_price = product[:delivery].gsub(',', '.').to_f
+ 
+        desconto_percentual = 0.20
+        discounted_product_price = product_price * (1 - desconto_percentual)
+ 
+        total_price = discounted_product_price + delivery_price
+ 
+        formatted_total = "R$ #{'%.2f' % total_price}".gsub('.', ',')
+         
+        expect(total_price_element.text).to eq formatted_total
+        expect(formatted_total).to eq "R$ #{expected_value}"
+    end 
+    def assert_notification(message)
+        notice = find('p.notice').text
+        expect(notice).to eq message
+    end
+
 end
+
