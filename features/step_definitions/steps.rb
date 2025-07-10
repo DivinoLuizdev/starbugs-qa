@@ -8,49 +8,53 @@ Então('eu devo ver uma lista de cafés disponíveis') do
     expect(products.size).to be > 0
 end
 
-# ---------------------
-
-
+ 
 Dado('que eu estou na página principal da Starbugs') do
-  pending # Write code here that turns the phrase above into concrete actions
+    visit 'https://starbugs-qa.vercel.app/'
 end
 
-Dado('que desejo compra o café {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
+Dado('que desejo compra o café {string}') do |product_name|
+    @product_name = product_name
 end
 
-Dado('que esse produto custa R$ {float}') do |float|
-  pending # Write code here that turns the phrase above into concrete actions
+Dado('que esse produto custa R$ {string}') do |product_price|
+  @product_price = product_price
 end
 
-Dado('que o custo de entrega e de R$ {float}') do |float|
-  pending # Write code here that turns the phrase above into concrete actions
+Dado('que o custo de entrega e de R$ {string}') do |delivery_price|
+   @delivery_price = delivery_price
 end
 
 Quando('inicio a compra de item') do
-  pending # Write code here that turns the phrase above into concrete actions
+    product = find('.coffee-item', text: @product_name)
+    product.find('.buy-coffee').click
+     
 end
 
-Então('deve ver a pagina de Checkout com os detalhes do produto') do
-  pending # Write code here that turns the phrase above into concrete actions
+Então('devo ver a pagina de Checkout com os detalhes do produto') do
+    product_title =  find('.item-details h1')
+    expect(product_title.text).to eq(@product_name)
+
+    sub_price_price = find('.subtotal .sub-price')
+    expect(sub_price_price.text).to eq "R$ #{@product_price}"
+
 end
 
-Então('o valor total da compra deve ser R$ {float}') do |float|
-  pending # Write code here that turns the phrase above into concrete actions
+Então('o valor total da compra deve ser R$ {string}') do |expected_total|
+  expect(page).to have_css('.total .total-price')
+
+  total_price_element = find('.total .total-price')
+
+  # Corrige conversão de string com vírgula
+  product = @product_price.gsub(',', '.').to_f
+  delivery = @delivery_price.gsub(',', '.').to_f
+  total_price_value = product + delivery
+
+  formatted_total = "R$ #{'%.2f' % total_price_value}".gsub('.', ',')
+
+  expect(total_price_element.text).to eq formatted_total
+  expect(formatted_total).to eq "R$ #{expected_total}"
 end
 
-Dado('que desejo comprar o café {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Quando('inicio a compra desse item') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Então('deve ver um pop-up informando que o produto está indisponível') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Então('o pop-up deve ter o texto {string}') do |string|
-  pending # Write code here that turns the phrase above into concrete actions
-end
+# ---------------------
+ 
